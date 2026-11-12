@@ -1,0 +1,23 @@
+:root {
+  --bg-primary: #F8FAFC;
+  --surface-card: #FFFFFF;
+  --surface-elevated: #F1F5F9;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --accent-primary: #2563EB;
+  --accent-secondary: #0284C7;
+  --border-subtle: #E2E8F0;
+}
+
+.dark {
+  --bg-primary: #0B0F17;
+  --surface-card: #111827;
+  --surface-elevated: #1E293B;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --accent-primary: #3B82F6;
+  --accent-secondary: #38BDF8;
+  --border-subtle: #1F2937;
+}
