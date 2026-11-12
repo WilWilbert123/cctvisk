@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2563EB" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="pulse" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#grid)" />
+  <circle cx="200" cy="200" r="160" fill="url(#pulse)" />
+  <circle cx="200" cy="200" r="95" stroke="#2563EB" stroke-opacity="0.15" stroke-width="1.5" stroke-dasharray="4 6" />
+  <circle cx="200" cy="200" r="145" stroke="#0284C7" stroke-opacity="0.12" stroke-width="1" />
+  <circle cx="200" cy="200" r="6" fill="#2563EB" fill-opacity="0.5" />
+  <circle cx="120" cy="140" r="4" fill="#16A34A" fill-opacity="0.6" />
+  <circle cx="285" cy="150" r="4" fill="#16A34A" fill-opacity="0.6" />
+  <circle cx="255" cy="275" r="4" fill="#0284C7" fill-opacity="0.6" />
+  <line x1="200" y1="200" x2="120" y2="140" stroke="#2563EB" stroke-opacity="0.2" stroke-width="1" />
+  <line x1="200" y1="200" x2="285" y2="150" stroke="#2563EB" stroke-opacity="0.2" stroke-width="1" />
+  <line x1="200" y1="200" x2="255" y2="275" stroke="#2563EB" stroke-opacity="0.2" stroke-width="1" />
+</svg>

@@ -1,0 +1,24 @@
+{
+  "name": "CCTV Network Discovery & Recovery Assistant",
+  "short_name": "CCTV Assistant",
+  "description": "Authorized LAN CCTV, NVR, and ONVIF Device Discovery, Live Stream Viewing, Monitoring, and Official Recovery Assistant",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#2563EB",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
