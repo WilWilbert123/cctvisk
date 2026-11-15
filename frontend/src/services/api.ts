@@ -61,7 +61,7 @@ export async function apiRequest<T>(
     });
   } catch (networkErr) {
     // If running inside the standalone Android APK and the laptop backend is unreachable,
-    // use the on-phone Native Android Java Network Discovery bridge!
+    // use the on-phone Native Android Java Network Discovery bridge!  haha
     const androidBridge =
       typeof window !== 'undefined' ? (window as any).AndroidNativeScanner : null;
     if (androidBridge && typeof androidBridge.handleApiRequest === 'function') {
