@@ -184,7 +184,7 @@ export const CameraLivePlayer: React.FC<CameraLivePlayerProps> = ({
     isOpen && isStreaming
   );
 
-  // Automatically attempt connection when modal opens
+  // Automatically attempt connection when modal opens hehe
   useEffect(() => {
     if (isOpen && camera) {
       setRtspPort(camera.rtsp_port || 554);
