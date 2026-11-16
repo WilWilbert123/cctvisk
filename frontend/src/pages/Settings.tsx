@@ -80,7 +80,7 @@ export const Settings: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Appearance & Theme */}
+        {/* Appearance & Theme hehe */}
         <Card
           title="Interface Appearance"
           subtitle="Default Light Mode with full Dark Mode & System sync support"
