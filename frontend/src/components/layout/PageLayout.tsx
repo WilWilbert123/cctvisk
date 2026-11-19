@@ -77,7 +77,7 @@ export const PageLayout: React.FC<{ children?: React.ReactNode }> = ({ children 
         <MobileNavigation />
       </div>
 
-      {/* Global Live CCTV Stream Connection & Player Modal */}
+      {/* Global Live CCTV Stream Connection & Player Modal hehe */}
       {activeLiveCamera && (
         <CameraLivePlayer
           camera={activeLiveCamera}
