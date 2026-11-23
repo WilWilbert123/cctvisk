@@ -1,0 +1,107 @@
+{
+  "oui_database": {
+    "00:40:8C": { "manufacturer": "Axis Communications", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "AC:CC:8E": { "manufacturer": "Axis Communications", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "B8:A4:4F": { "manufacturer": "Axis Communications", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "28:57:BE": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "44:19:B6": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "4C:BD:8F": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "54:C4:15": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "64:DB:8B": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "8C:E7:48": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "A4:14:37": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "BC:AD:28": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "C0:56:E3": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "C4:2F:90": { "manufacturer": "Hikvision Digital Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "38:AF:29": { "manufacturer": "Dahua Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "3C:EF:8C": { "manufacturer": "Dahua Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "4C:11:BF": { "manufacturer": "Dahua Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "90:02:A9": { "manufacturer": "Dahua Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "A0:BD:1D": { "manufacturer": "Dahua Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "E0:50:8B": { "manufacturer": "Dahua Technology", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "EC:71:DB": { "manufacturer": "Reolink Innovation", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "9C:8E:CD": { "manufacturer": "Amcrest Technologies", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "48:EA:63": { "manufacturer": "Uniview Technologies", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "6C:F1:7E": { "manufacturer": "Uniview Technologies", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "00:09:18": { "manufacturer": "Hanwha Vision (Samsung Techwin)", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "00:16:6C": { "manufacturer": "Hanwha Vision (Samsung Techwin)", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "E4:30:22": { "manufacturer": "Hanwha Vision", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "00:02:D1": { "manufacturer": "Vivotek", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "00:04:76": { "manufacturer": "Bosch Security Systems", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "00:07:5F": { "manufacturer": "Bosch Security Systems", "category_hint": "CAMERA", "is_cctv_vendor": true },
+    "7C:8B:CA": { "manufacturer": "TP-Link (Tapo / VIGI)", "category_hint": "UNKNOWN", "is_cctv_vendor": false },
+    "50:C7:BF": { "manufacturer": "TP-Link Corporation", "category_hint": "ROUTER", "is_cctv_vendor": false },
+    "B0:BE:76": { "manufacturer": "TP-Link Corporation", "category_hint": "ROUTER", "is_cctv_vendor": false },
+    "18:E8:29": { "manufacturer": "Ubiquiti Inc.", "category_hint": "UNKNOWN", "is_cctv_vendor": false },
+    "24:5A:4C": { "manufacturer": "Ubiquiti Inc.", "category_hint": "UNKNOWN", "is_cctv_vendor": false },
+    "74:83:C2": { "manufacturer": "Ubiquiti Inc.", "category_hint": "UNKNOWN", "is_cctv_vendor": false },
+    "00:1B:63": { "manufacturer": "Apple, Inc.", "category_hint": "COMPUTER", "is_cctv_vendor": false },
+    "3C:22:FB": { "manufacturer": "Apple, Inc.", "category_hint": "COMPUTER", "is_cctv_vendor": false },
+    "F0:18:98": { "manufacturer": "Apple, Inc.", "category_hint": "COMPUTER", "is_cctv_vendor": false },
+    "00:1A:79": { "manufacturer": "Netgear", "category_hint": "ROUTER", "is_cctv_vendor": false },
+    "00:14:6C": { "manufacturer": "Netgear", "category_hint": "ROUTER", "is_cctv_vendor": false },
+    "04:D4:C4": { "manufacturer": "ASUSTek Computer", "category_hint": "ROUTER", "is_cctv_vendor": false },
+    "FC:34:97": { "manufacturer": "ASUSTek Computer", "category_hint": "COMPUTER", "is_cctv_vendor": false },
+    "00:1E:67": { "manufacturer": "Intel Corporate", "category_hint": "COMPUTER", "is_cctv_vendor": false },
+    "3C:97:0E": { "manufacturer": "Wistron InfoComm", "category_hint": "COMPUTER", "is_cctv_vendor": false },
+    "8C:8D:28": { "manufacturer": "Hewlett Packard", "category_hint": "PRINTER", "is_cctv_vendor": false },
+    "00:17:A4": { "manufacturer": "Hewlett Packard", "category_hint": "PRINTER", "is_cctv_vendor": false },
+    "00:80:92": { "manufacturer": "Brother Industries", "category_hint": "PRINTER", "is_cctv_vendor": false },
+    "00:26:AB": { "manufacturer": "Seiko Epson", "category_hint": "PRINTER", "is_cctv_vendor": false },
+    "B8:27:EB": { "manufacturer": "Raspberry Pi Foundation", "category_hint": "COMPUTER", "is_cctv_vendor": false },
+    "DC:A6:32": { "manufacturer": "Raspberry Pi Trading", "category_hint": "COMPUTER", "is_cctv_vendor": false }
+  },
+  "rtsp_templates": {
+    "Hikvision": [
+      "/Streaming/Channels/101",
+      "/Streaming/Channels/102",
+      "/h264/ch1/main/av_stream"
+    ],
+    "Dahua": [
+      "/cam/realmonitor?channel=1&subtype=0",
+      "/cam/realmonitor?channel=1&subtype=1"
+    ],
+    "Axis": [
+      "/axis-media/media.amp",
+      "/mpeg4/media.amp"
+    ],
+    "Reolink": [
+      "/h264Preview_01_main",
+      "/h264Preview_01_sub"
+    ],
+    "Amcrest": [
+      "/cam/realmonitor?channel=1&subtype=0",
+      "/cam/realmonitor?channel=1&subtype=1"
+    ],
+    "Uniview": [
+      "/media/video1",
+      "/media/video2",
+      "/unicast/c1/s0/live"
+    ],
+    "Hanwha": [
+      "/profile2/media.smp",
+      "/profile1/media.smp"
+    ],
+    "TP-Link": [
+      "/stream1",
+      "/stream2"
+    ],
+    "Generic": [
+      "/stream1",
+      "/live/ch0",
+      "/live/main",
+      "/Streaming/Channels/101",
+      "/cam/realmonitor?channel=1&subtype=0",
+      "/h264Preview_01_main"
+    ]
+  },
+  "http_snapshot_templates": {
+    "Hikvision": ["/ISAPI/Streaming/channels/101/picture"],
+    "Dahua": ["/cgi-bin/snapshot.cgi?channel=1"],
+    "Axis": ["/axis-cgi/jpg/image.cgi"],
+    "Reolink": ["/cgi-bin/api.cgi?cmd=Snap&channel=0"],
+    "Amcrest": ["/cgi-bin/snapshot.cgi"],
+    "Generic": ["/snapshot.jpg", "/image/jpeg.cgi", "/cgi-bin/snapshot.cgi"]
+  }
+}
+
