@@ -1,0 +1,18 @@
+services:
+  cctv-assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cctv-network-assistant
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - APP_ENV=production
+      - HOST=0.0.0.0
+      - PORT=8000
+      - ALLOW_LAN_ACCESS=true
+      - DATABASE_URL=sqlite:///./data/database/cctv_assistant.db
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config:ro
+

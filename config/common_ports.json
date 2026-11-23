@@ -1,0 +1,124 @@
+{
+  "ports": [
+    {
+      "port": 80,
+      "protocol": "TCP",
+      "service": "HTTP",
+      "description": "Web Administration / ONVIF HTTP SOAP Service",
+      "category_relevance": ["CAMERA", "NVR", "DVR", "ROUTER", "PRINTER"]
+    },
+    {
+      "port": 443,
+      "protocol": "TCP",
+      "service": "HTTPS",
+      "description": "Secure Web Administration / HTTPS Service",
+      "category_relevance": ["CAMERA", "NVR", "DVR", "ROUTER", "PRINTER"]
+    },
+    {
+      "port": 554,
+      "protocol": "TCP",
+      "service": "RTSP",
+      "description": "Real Time Streaming Protocol (Video/Audio Stream)",
+      "category_relevance": ["CAMERA", "NVR", "DVR"]
+    },
+    {
+      "port": 3702,
+      "protocol": "UDP",
+      "service": "WS-Discovery / ONVIF",
+      "description": "ONVIF Web Services Dynamic Discovery",
+      "category_relevance": ["CAMERA", "NVR"]
+    },
+    {
+      "port": 5000,
+      "protocol": "TCP",
+      "service": "UPnP / Synology / ONVIF Alt",
+      "description": "UPnP Control or Alternative ONVIF HTTP Port",
+      "category_relevance": ["CAMERA", "NVR", "COMPUTER"]
+    },
+    {
+      "port": 8000,
+      "protocol": "TCP",
+      "service": "Hikvision SDK / Alt HTTP",
+      "description": "Hikvision Control SDK / Common CCTV Service Port",
+      "category_relevance": ["CAMERA", "NVR", "DVR"]
+    },
+    {
+      "port": 8080,
+      "protocol": "TCP",
+      "service": "HTTP-Alt",
+      "description": "Alternative Web Administration / ONVIF Service Port",
+      "category_relevance": ["CAMERA", "NVR", "ROUTER"]
+    },
+    {
+      "port": 8443,
+      "protocol": "TCP",
+      "service": "HTTPS-Alt",
+      "description": "Alternative Secure Web Administration",
+      "category_relevance": ["CAMERA", "NVR", "ROUTER"]
+    },
+    {
+      "port": 8554,
+      "protocol": "TCP",
+      "service": "RTSP-Alt",
+      "description": "Alternative RTSP Video Streaming Port",
+      "category_relevance": ["CAMERA", "NVR", "DVR"]
+    },
+    {
+      "port": 8899,
+      "protocol": "TCP",
+      "service": "ONVIF-Alt",
+      "description": "Common ONVIF HTTP Service Port on IP Cameras",
+      "category_relevance": ["CAMERA", "NVR"]
+    },
+    {
+      "port": 9000,
+      "protocol": "TCP",
+      "service": "Reolink Baichuan / CCTV Media",
+      "description": "Reolink Proprietary Management / Media Service",
+      "category_relevance": ["CAMERA", "NVR"]
+    },
+    {
+      "port": 37777,
+      "protocol": "TCP",
+      "service": "Dahua SDK",
+      "description": "Dahua / Amcrest Proprietary Device Control Port",
+      "category_relevance": ["CAMERA", "NVR", "DVR"]
+    },
+    {
+      "port": 34567,
+      "protocol": "TCP",
+      "service": "XMeye / Sofia DVR",
+      "description": "Xiongmai / Generic DVR & IP Camera Control Port",
+      "category_relevance": ["CAMERA", "DVR", "NVR"]
+    },
+    {
+      "port": 53,
+      "protocol": "TCP",
+      "service": "DNS",
+      "description": "Domain Name System Resolver (Router / Gateway)",
+      "category_relevance": ["ROUTER"]
+    },
+    {
+      "port": 631,
+      "protocol": "TCP",
+      "service": "IPP",
+      "description": "Internet Printing Protocol",
+      "category_relevance": ["PRINTER"]
+    },
+    {
+      "port": 9100,
+      "protocol": "TCP",
+      "service": "JetDirect",
+      "description": "Raw Network Printing Service",
+      "category_relevance": ["PRINTER"]
+    },
+    {
+      "port": 445,
+      "protocol": "TCP",
+      "service": "SMB",
+      "description": "Windows/SAMBA File Sharing",
+      "category_relevance": ["COMPUTER"]
+    }
+  ]
+}
+

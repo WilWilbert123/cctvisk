@@ -1,0 +1,271 @@
+{
+  "manufacturers": {
+    "Hikvision": {
+      "manufacturer": "Hikvision Digital Technology",
+      "official_support_url": "https://www.hikvision.com/en/support/",
+      "official_tools": ["SADP Tool (Search Active Devices Protocol)", "iVMS-4200"],
+      "supports_reset_button": true,
+      "supports_xml_export_recovery": true,
+      "supports_qr_recovery": true,
+      "summary": "Authorized password reset via physical reset button, security questions/reserved email in SADP, or official XML/QR export workflow with Hikvision Technical Support.",
+      "physical_reset_instructions": [
+        "Disconnect power (12V DC or PoE ethernet cable) from the Hikvision camera.",
+        "Locate the physical Reset button (often inside the microSD compartment or on the pigtail cable).",
+        "Press and hold the Reset button firmly while reconnecting power to the camera.",
+        "Continue holding the Reset button for 15 to 20 seconds after power is restored, then release.",
+        "Wait 60-90 seconds for the camera to reboot into 'Inactive' factory state.",
+        "Activate the camera with a strong new administrator password using Hikvision SADP or the web browser interface."
+      ],
+      "authorized_workflow_steps": [
+        {
+          "step": 1,
+          "title": "Verify Ownership & Physical/LAN Access",
+          "description": "Confirm you are the authorized owner or administrator of the Hikvision camera or NVR/DVR on the local subnet."
+        },
+        {
+          "step": 2,
+          "title": "Attempt Self-Service Reset (Reserved Email / Security Questions)",
+          "description": "Open the camera or NVR web interface or Hikvision SADP Tool, click 'Forgot Password', and check if a reserved recovery email or security questions were configured during initial activation."
+        },
+        {
+          "step": 3,
+          "title": "Use Physical Factory Reset Button (IP Cameras)",
+          "description": "If the camera model includes a hardware reset switch inside the SD card slot cover or pigtail harness, perform the 15-second power-on hold procedure."
+        },
+        {
+          "step": 4,
+          "title": "Authorized XML / QR Code Recovery via Official Support",
+          "description": "For NVRs/DVRs or cameras without a reset button, use Hikvision SADP Tool to export the device's encrypted XML request file or QR code, submit it with proof of ownership to official Hikvision Support, and import the signed reset file before rebooting the device."
+        },
+        {
+          "step": 5,
+          "title": "Configure & Vault New Administrator Credentials",
+          "description": "Set a strong new password on the device and optionally store it in the encrypted local Credential Vault below."
+        }
+      ],
+      "warnings": [
+        "Do NOT reboot or power-cycle the NVR/Camera after exporting a SADP XML recovery request until the official response file has been imported, as the challenge timestamp/seed will expire.",
+        "Factory resetting an NVR returns network and user settings to default; recorded footage on hard drives normally remains intact unless storage initialization is triggered."
+      ]
+    },
+    "Dahua": {
+      "manufacturer": "Dahua Technology",
+      "official_support_url": "https://www.dahuasecurity.com/support",
+      "official_tools": ["Dahua ConfigTool", "DMSS Mobile App"],
+      "supports_reset_button": true,
+      "supports_xml_export_recovery": true,
+      "supports_qr_recovery": true,
+      "summary": "Authorized password recovery via Dahua ConfigTool XML/QR code reset with registered email or physical motherboard/housing reset button.",
+      "physical_reset_instructions": [
+        "Keep the Dahua IP camera powered on.",
+        "Open the service hatch (microSD card slot cover) on the camera body or locate the reset button on the mainboard (for select dome/bullet models).",
+        "Press and hold the Reset button for 10 to 15 seconds until the status LED blinks or the IR lights cycle.",
+        "Release the button and allow 60 seconds for the device to reboot into uninitialized state.",
+        "Open the device IP in a browser or Dahua ConfigTool to initialize a new administrator password and recovery email."
+      ],
+      "authorized_workflow_steps": [
+        {
+          "step": 1,
+          "title": "Check On-Screen / Web 'Forgot Password' QR Option",
+          "description": "Access the Dahua web login page or local NVR HDMI interface and click 'Forgot Password'. If a recovery email was configured, scan the official security QR code to receive a reset code."
+        },
+        {
+          "step": 2,
+          "title": "Dahua ConfigTool Batch XML Export",
+          "description": "Install official Dahua ConfigTool on the host computer, navigate to Password Reset, and export the device Reset XML file for submission to authorized Dahua technical support."
+        },
+        {
+          "step": 3,
+          "title": "Hardware Reset Button (Supported Cameras & Recorders)",
+          "description": "For cameras with an accessible reset switch (or NVR mainboards with a J1/Reset button), hold the reset switch for 10-15 seconds while powered."
+        },
+        {
+          "step": 4,
+          "title": "Save New Credentials in Local Encrypted Vault",
+          "description": "Once re-initialized, record the recovery completion and store the new credentials securely."
+        }
+      ],
+      "warnings": [
+        "Ensure you record a valid recovery email address during re-initialization to allow self-service QR recovery in the future."
+      ]
+    },
+    "Axis": {
+      "manufacturer": "Axis Communications",
+      "official_support_url": "https://www.axis.com/support",
+      "official_tools": ["AXIS IP Utility", "AXIS Device Manager"],
+      "supports_reset_button": true,
+      "supports_xml_export_recovery": false,
+      "supports_qr_recovery": false,
+      "summary": "Axis network cameras require a physical hardware factory default procedure using the onboard Control button.",
+      "physical_reset_instructions": [
+        "Disconnect power from the Axis network camera.",
+        "Locate the physical Control button on the camera chassis or internal board (refer to the model hardware manual).",
+        "Press and hold the Control button while reconnecting power.",
+        "Keep the Control button pressed for 15 to 30 seconds until the status LED indicator flashes amber.",
+        "Release the Control button. When the status LED turns green, the camera has reset to factory defaults.",
+        "Navigate to the camera's IP address in your browser to configure a new root/administrator password."
+      ],
+      "authorized_workflow_steps": [
+        {
+          "step": 1,
+          "title": "Identify Axis Model & Control Button Location",
+          "description": "Verify the exact Axis model number (e.g., AXIS P32 / M30 series) and locate the hardware Control button."
+        },
+        {
+          "step": 2,
+          "title": "Execute Power-On Control Button Factory Default",
+          "description": "Hold the Control button during power-up for 15-30 seconds until the status indicator flashes amber."
+        },
+        {
+          "step": 3,
+          "title": "Reconfigure Administrator Account",
+          "description": "Set a new password via the Axis web interface or AXIS Device Manager and store it in the local vault."
+        }
+      ],
+      "warnings": [
+        "Factory defaulting an Axis camera resets IP configuration to DHCP/Zeroconf unless static IP preservation is explicitly supported."
+      ]
+    },
+    "Reolink": {
+      "manufacturer": "Reolink Innovation",
+      "official_support_url": "https://support.reolink.com/",
+      "official_tools": ["Reolink Desktop Client", "Reolink Mobile App"],
+      "supports_reset_button": true,
+      "supports_xml_export_recovery": false,
+      "supports_qr_recovery": false,
+      "summary": "Reolink cameras and NVRs are recovered by holding the physical reset button on the pigtail harness, SD card slot, or NVR mainboard.",
+      "physical_reset_instructions": [
+        "Locate the reset button on the camera's network pigtail cable or beneath the microSD card cover.",
+        "With the camera powered on, press and hold the reset button using a reset pin for approximately 10 seconds.",
+        "Listen for the audible chime or observe the IR LEDs flashing, then release the button.",
+        "Wait 45-60 seconds for the camera to reboot and set a new password via the Reolink client or web interface."
+      ],
+      "authorized_workflow_steps": [
+        {
+          "step": 1,
+          "title": "Locate Hardware Reset Switch",
+          "description": "Check the camera pigtail cable cap or microSD slot cover for the physical reset button."
+        },
+        {
+          "step": 2,
+          "title": "Perform 10-Second Reset Hold",
+          "description": "Hold the reset switch while powered until the reset chime sounds or status LEDs cycle."
+        },
+        {
+          "step": 3,
+          "title": "Initialize New Password & Enable RTSP/ONVIF",
+          "description": "Note that Reolink factory resets disable RTSP/ONVIF by default on newer firmware; re-enable RTSP/ONVIF in Network -> Advanced -> Server Settings after resetting."
+        }
+      ],
+      "warnings": [
+        "After a factory reset on Reolink cameras, HTTP/RTSP/ONVIF ports may be disabled by default and must be turned back on in Reolink Client -> Network -> Server Settings."
+      ]
+    },
+    "Amcrest": {
+      "manufacturer": "Amcrest Technologies",
+      "official_support_url": "https://support.amcrest.com/",
+      "official_tools": ["Amcrest IP Config Tool", "Amcrest Surveillance Pro"],
+      "supports_reset_button": true,
+      "supports_xml_export_recovery": true,
+      "supports_qr_recovery": true,
+      "summary": "Amcrest cameras and NVRs support physical button factory reset or Amcrest IP Config XML/QR password reset.",
+      "physical_reset_instructions": [
+        "Ensure the Amcrest camera is connected to power.",
+        "Open the bottom or rear service compartment or locate the reset button on the cable harness.",
+        "Press and hold the Reset button for 15 seconds.",
+        "Release the button and allow 60 seconds for the camera to restart with factory default settings."
+      ],
+      "authorized_workflow_steps": [
+        {
+          "step": 1,
+          "title": "Check Web Login 'Forgot Password' Link",
+          "description": "If a recovery email was saved during initial setup, use the built-in reset flow on the device's web interface."
+        },
+        {
+          "step": 2,
+          "title": "Perform Hardware Factory Reset",
+          "description": "Hold the physical reset button for 15 seconds while the camera is powered on."
+        },
+        {
+          "step": 3,
+          "title": "Set New Password & Save to Vault",
+          "description": "Log in with the initialized account, set a strong administrator password, and save it in the vault."
+        }
+      ],
+      "warnings": [
+        "If the camera is connected to an Amcrest NVR Private Port, reset the password through the NVR's Camera Registration menu."
+      ]
+    },
+    "Uniview": {
+      "manufacturer": "Uniview Technologies (UNV)",
+      "official_support_url": "https://global.uniview.com/Support/",
+      "official_tools": ["EZTools", "EZStation", "EZView"],
+      "supports_reset_button": true,
+      "supports_xml_export_recovery": false,
+      "supports_qr_recovery": true,
+      "summary": "Uniview devices support password recovery via the EZView mobile app QR code, EZTools, or physical reset button (within 10 minutes of power-on on select models).",
+      "physical_reset_instructions": [
+        "Note: On many Uniview IP cameras, the physical reset button is only active during the first 10 minutes after power-up.",
+        "Power-cycle the camera and wait 60 seconds for boot completion.",
+        "Within 10 minutes of boot, press and hold the physical Reset button for 15 seconds.",
+        "Wait for the camera to reboot into factory default state, then configure a new password."
+      ],
+      "authorized_workflow_steps": [
+        {
+          "step": 1,
+          "title": "Attempt EZView / Security Email QR Reset",
+          "description": "Click 'Forgot Password' on the web login page and scan the security QR code using the official UNV EZView app or contact UNV technical support with the security string."
+        },
+        {
+          "step": 2,
+          "title": "Execute Power-Cycle + 10-Minute Window Hardware Reset",
+          "description": "Reboot the camera, then hold the hardware reset button for 15 seconds within the first 10 minutes of operation."
+        },
+        {
+          "step": 3,
+          "title": "Update Credentials in Vault",
+          "description": "Store the newly configured administrator password securely."
+        }
+      ],
+      "warnings": [
+        "Uniview hardware reset buttons are often disabled after 10 minutes of uptime to prevent tampering; power-cycle the camera first before pressing the reset switch."
+      ]
+    },
+    "Generic": {
+      "manufacturer": "Unidentified / Generic ONVIF Manufacturer",
+      "official_support_url": "https://www.onvif.org/",
+      "official_tools": ["Manufacturer Config Utility", "Web Browser Administration"],
+      "supports_reset_button": true,
+      "supports_xml_export_recovery": false,
+      "supports_qr_recovery": false,
+      "summary": "Manufacturer model has not been conclusively verified. Confirm the physical label on the device housing before performing a hardware reset.",
+      "physical_reset_instructions": [
+        "Inspect the physical product label on the camera or recorder housing to confirm the exact manufacturer and model number.",
+        "Check the pigtail cable harness or microSD card compartment for a recessed Reset button.",
+        "Consult the manufacturer's official hardware manual for the exact hold duration (typically 10-20 seconds while powered or during power-on).",
+        "After resetting, access the device's web interface on its local IP address to set a new administrator password."
+      ],
+      "authorized_workflow_steps": [
+        {
+          "step": 1,
+          "title": "Identify Device Manufacturer & Model",
+          "description": "Select or manually enter the verified manufacturer and model from the physical device label."
+        },
+        {
+          "step": 2,
+          "title": "Follow Official Manufacturer Reset Procedure",
+          "description": "Use the vendor's official management utility or physical reset switch on the device."
+        },
+        {
+          "step": 3,
+          "title": "Save New Credentials",
+          "description": "Record the recovery action and store the updated credentials in the local encrypted vault."
+        }
+      ],
+      "warnings": [
+        "Never use untrusted third-party 'password generator' websites, as they may distribute malware or violate device security."
+      ]
+    }
+  }
+}
+
