@@ -233,6 +233,20 @@ class ScanWorkerManager:
                 scan_id, 55.0, f"Fingerprinting and classifying {total_alive} active devices", total_alive
             )
 
+            # Mark any previously discovered devices on this subnet that did not respond in this scan as offline
+            with session_scope() as session:
+                dev_repo = DeviceRepository(session)
+                for existing_dev in dev_repo.get_all():
+                    try:
+                        if (
+                            ipaddress.ip_address(existing_dev.ip_address) in net_obj
+                            and existing_dev.ip_address not in hosts_map
+                        ):
+                            existing_dev.is_online = False
+                            session.commit()
+                    except ValueError:
+                        pass
+
             fingerprints_collected: list[dict[str, Any]] = []
             processed = 0
             for ip_addr, host_base in sorted(hosts_map.items()):

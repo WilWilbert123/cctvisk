@@ -33,9 +33,9 @@ def read_os_arp_table() -> dict[str, str]:
         return ip_to_mac
 
     # Matches Windows (`192.168.1.10   00-11-22-33-44-55   dynamic`)
-    # and macOS/Linux (`? (192.168.1.10) at 00:11:22:33:44:55 on en0`)
+    # and macOS/Linux (`? (192.168.1.10) at 0:11:22:33:44:55 on en0`)
     pattern = re.compile(
-        r"(\d{1,3}(?:\.\d{1,3}){3})\s+(?:at\s+)?([0-9A-Fa-f]{1,2}(?:[:-][0-9A-Fa-f]{1,2}){5})"
+        r"\(?(\d{1,3}(?:\.\d{1,3}){3})\)?\s+(?:at\s+)?([0-9A-Fa-f]{1,2}(?:[:-][0-9A-Fa-f]{1,2}){5})"
     )
     for match in pattern.finditer(output):
         ip_str, raw_mac = match.group(1), match.group(2)

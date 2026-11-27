@@ -26,23 +26,39 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onSelect }) => {
   const navigate = useNavigate();
   const setActiveLiveCamera = useDeviceStore((s) => s.setActiveLiveCamera);
 
+  const catUpper = (device.category || '').toUpperCase();
   const isCamera =
-    device.category === 'ip_camera' ||
+    catUpper === 'CAMERA' ||
+    catUpper === 'ONVIF_CAMERA' ||
+    catUpper === 'IP_CAMERA' ||
     Boolean(device.camera) ||
     (device.open_ports || []).some((p) =>
       typeof p === 'number' ? p === 554 || p === 8554 : p.port === 554 || p.port === 8554
     );
 
-  const CategoryIcon =
-    device.category === 'ip_camera'
-      ? Cctv
-      : device.category === 'nvr_dvr'
-      ? HardDrive
-      : device.category === 'network_infrastructure'
-      ? Router
-      : device.category === 'workstation_mobile'
-      ? Monitor
-      : HelpCircle;
+  const isNvr = catUpper === 'NVR' || catUpper === 'DVR' || catUpper === 'NVR_DVR' || Boolean(device.nvr);
+  const isRouter = catUpper === 'ROUTER' || catUpper === 'NETWORK_DEVICE' || catUpper === 'NETWORK_INFRASTRUCTURE';
+  const isComputer = catUpper === 'COMPUTER' || catUpper === 'NAS' || catUpper === 'WORKSTATION_MOBILE';
+
+  const CategoryIcon = isCamera
+    ? Cctv
+    : isNvr
+    ? HardDrive
+    : isRouter
+    ? Router
+    : isComputer
+    ? Monitor
+    : HelpCircle;
+
+  const categoryLabel = isCamera
+    ? 'CCTV Camera'
+    : isNvr
+    ? 'NVR / DVR Server'
+    : isRouter
+    ? device.model || 'Router / Switch / AP'
+    : isComputer
+    ? device.model || 'Computer / Mobile'
+    : 'Unclassified Host';
 
   const openLiveView = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -95,10 +111,26 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onSelect }) => {
             </div>
           </div>
 
-          <DeviceStatus
-            isOnline={device.is_online}
-            latencyMs={device.latency_ms}
-          />
+          <div className="flex flex-col items-end gap-1">
+            <DeviceStatus
+              isOnline={device.is_online}
+              latencyMs={device.latency_ms}
+            />
+            <Badge
+              variant={isCamera || isNvr ? 'info' : isRouter ? 'warning' : 'default'}
+              size="sm"
+            >
+              {isCamera
+                ? 'CCTV CAMERA'
+                : isNvr
+                ? 'CCTV NVR/DVR'
+                : `NOT CAMERA (${(catUpper || 'HOST').replace('_', ' ')})`}
+            </Badge>
+          </div>
+        </div>
+
+        <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+          {categoryLabel}
         </div>
 
         <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-lg">
@@ -129,7 +161,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onSelect }) => {
       </div>
 
       <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2 flex-wrap">
-        {isCamera ? (
+        {isCamera || isNvr ? (
           <Button
             size="xs"
             variant="primary"

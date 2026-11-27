@@ -35,7 +35,7 @@ def extract_camera_candidate_attributes(
     Returns None if the device is not a camera.
     """
     category = classification.get("category")
-    if category not in ("CAMERA", "ONVIF_CAMERA"):
+    if category not in ("CAMERA", "ONVIF_CAMERA", "NVR", "DVR"):
         return None
 
     open_ports: list[int] = fingerprint.get("open_ports", [])

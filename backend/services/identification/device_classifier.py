@@ -105,9 +105,10 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
             "detected_protocols": sorted(set(detected_protocols + ["ONVIF"])),
         }
 
-    # 3. Check for IP Camera with multiple corroborating signals
-    #    Note: Port 80 or Port 554 alone without vendor/banner/SDK corroboration is NOT labeled HIGH camera
-    cctv_sdk_ports = {8000, 37777, 8899, 9000} & port_set
+    # 3. Check for IP Camera with corroborating signals
+    #    - Verified RTSP OPTIONS responder (`RTSP/1.0` on port 554/8554/10554) or CCTV SDK port (8000/37777/8899/9000/34567)
+    #    - Or CCTV vendor OUI / HTTP camera banner
+    cctv_sdk_ports = {8000, 37777, 37778, 8899, 9000, 9527, 34567} & port_set
     camera_keywords = (
         "ipcamera",
         "ip camera",
@@ -120,6 +121,12 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
         "amcrest",
         "uniview",
         "vivotek",
+        "tapo",
+        "vigi",
+        "ezviz",
+        "imou",
+        "tiandy",
+        "xmeye",
         "cam-",
         "ipc-",
     )
@@ -130,13 +137,13 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
         camera_score += 2
         evidence.append(f"Identified CCTV manufacturer ({manufacturer})")
     if rtsp_verified:
-        camera_score += 2
+        camera_score += 3
         evidence.append("Verified active RTSP streaming responder via OPTIONS handshake")
-    elif 554 in port_set or 8554 in port_set:
-        camera_score += 1
-        evidence.append("TCP port 554/8554 open")
-    if cctv_sdk_ports:
+    elif 554 in port_set or 8554 in port_set or 10554 in port_set:
         camera_score += 2
+        evidence.append("TCP RTSP port 554/8554/10554 open")
+    if cctv_sdk_ports:
+        camera_score += 3
         evidence.append(f"CCTV vendor control ports open: {sorted(cctv_sdk_ports)}")
     if has_camera_keyword:
         camera_score += 2
@@ -151,17 +158,18 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
             "manufacturer": manufacturer,
             "model": model,
             "onvif_available": False,
-            "rtsp_available": rtsp_verified or (554 in port_set) or (8554 in port_set),
+            "rtsp_available": rtsp_verified or bool({554, 8554, 10554} & port_set),
             "detected_protocols": sorted(set(detected_protocols)),
         }
 
-    # 4. Check for Router / Gateway / Managed Network Switch
-    is_managed_switch = (
+    # 4. Check for Router / Gateway / Managed Network Switch / Access Point
+    is_managed_switch_or_ap = (
         ("logoninfo" in banner_text and "g_lan" in banner_text)
         or ("/base/nanoscroller.css" in banner_text)
+        or hostname.startswith(("rap22", "rg-es", "rg-eg", "rg-nbr", "eap", "unifi", "ap-"))
         or (
             manufacturer
-            and any(v in manufacturer.lower() for v in ("tp-link", "netgear", "cisco", "ubiquiti", "d-link", "mikrotik"))
+            and any(v in manufacturer.lower() for v in ("tp-link", "netgear", "cisco", "ubiquiti", "d-link", "mikrotik", "ruijie"))
             and 80 in port_set
             and 445 not in port_set
         )
@@ -169,20 +177,26 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
     if (
         fingerprint.get("is_gateway")
         or (53 in port_set and (80 in port_set or 443 in port_set))
-        or is_managed_switch
+        or is_managed_switch_or_ap
     ):
         if fingerprint.get("is_gateway"):
             evidence.append("Device IP matches the active subnet's default gateway")
             model = model or "Network Gateway / Router"
+        elif hostname.startswith("rap"):
+            evidence.append(f"Hostname '{hostname}' identifies Ruijie Reyee Wireless Access Point")
+            model = model or f"Reyee Wi-Fi Access Point ({hostname.split('.')[0].upper()})"
+        elif hostname.startswith("rg-es"):
+            evidence.append(f"Hostname '{hostname}' identifies Ruijie Smart PoE Managed Switch")
+            model = model or f"Ruijie Smart Managed Switch ({hostname.split('.')[0].upper()})"
         elif 53 in port_set:
             evidence.append("DNS resolver port 53 open alongside web administration")
             model = model or "DNS / Network Router"
-        elif is_managed_switch:
+        elif is_managed_switch_or_ap:
             evidence.append("HTTP management interface matched managed network switch / AP")
             model = model or "Managed Network Switch / AP"
         return {
             "category": DeviceCategory.ROUTER.value,
-            "confidence": ConfidenceLevel.HIGH.value if fingerprint.get("is_gateway") else ConfidenceLevel.MEDIUM.value,
+            "confidence": ConfidenceLevel.HIGH.value if (fingerprint.get("is_gateway") or hostname.startswith(("rap", "rg-"))) else ConfidenceLevel.MEDIUM.value,
             "evidence": evidence,
             "manufacturer": manufacturer,
             "model": model,
@@ -208,8 +222,10 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
             "detected_protocols": sorted(set(detected_protocols)),
         }
 
-    # 6. Check for Computer / Workstation / Host / NAS Server
-    if fingerprint.get("is_host") or 445 in port_set or mac_vendor.get("category_hint") == "COMPUTER":
+    # 6. Check for Computer / Workstation / Host / NAS Server / Mobile Device
+    mobile_tokens = ("xiaomi", "redmi", "realme", "oppo", "vivo", "s23", "s24", "galaxy", "iphone", "ipad", "lmu-lx9", "honor", "21051182g")
+    is_mobile_or_client = any(t in hostname for t in mobile_tokens) or ("lpt" in hostname or "pc" in hostname or "desktop" in hostname or "macbook" in hostname)
+    if fingerprint.get("is_host") or 445 in port_set or mac_vendor.get("category_hint") == "COMPUTER" or is_mobile_or_client:
         if fingerprint.get("is_host"):
             evidence.append("Device is the local host machine running the scanner")
             inferred_model = "Local Scanner Host"
@@ -222,6 +238,9 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
         elif 445 in port_set:
             evidence.append("SMB/CIFS workstation file-sharing port 445 open")
             inferred_model = "Windows / SMB Workstation"
+        elif is_mobile_or_client:
+            evidence.append(f"Hostname '{hostname}' identifies client workstation / mobile device")
+            inferred_model = f"Client Device ({hostname.split('.')[0]})"
         else:
             evidence.append(f"MAC OUI belongs to computer hardware vendor ({manufacturer})")
             inferred_model = "Desktop / Laptop Workstation"
@@ -231,6 +250,22 @@ def classify_device_from_evidence(fingerprint: dict[str, Any]) -> dict[str, Any]
             "evidence": evidence,
             "manufacturer": manufacturer,
             "model": model or inferred_model,
+            "onvif_available": False,
+            "rtsp_available": False,
+            "detected_protocols": sorted(set(detected_protocols)),
+        }
+
+    # 6b. Check if MAC address uses a randomized Locally Administered bit (bit 1 of first octet: x2, x6, xA, xE)
+    #     when no server ports are open (typical iOS / Android / macOS Wi-Fi client)
+    mac_addr = fingerprint.get("mac_address") or ""
+    if not open_ports and len(mac_addr) >= 2 and mac_addr[1].upper() in {"2", "6", "A", "E"}:
+        evidence.append(f"MAC {mac_addr} uses Locally Administered / Randomized Privacy MAC (iOS / Android / macOS Wi-Fi client)")
+        return {
+            "category": DeviceCategory.COMPUTER.value,
+            "confidence": ConfidenceLevel.LOW.value,
+            "evidence": evidence,
+            "manufacturer": manufacturer or "Mobile / Wi-Fi Client (Randomized MAC)",
+            "model": model or "Smartphone / Tablet / Laptop",
             "onvif_available": False,
             "rtsp_available": False,
             "detected_protocols": sorted(set(detected_protocols)),

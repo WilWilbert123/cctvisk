@@ -9,14 +9,18 @@ from backend.utils.ip_utils import validate_authorized_ip
 
 QUICK_LIVENESS_PORTS: tuple[int, ...] = (
     80,
+    81,
     554,
     443,
     445,
     139,
     8000,
     8080,
-    37777,
+    8554,
     8899,
+    9000,
+    34567,
+    37777,
     9100,
     53,
 )
