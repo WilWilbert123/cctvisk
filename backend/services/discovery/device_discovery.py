@@ -103,12 +103,14 @@ async def enrich_and_classify_host(
         open_ports = sorted(set(open_ports + port_res.get("open_ports", [])))
 
     onvif_info = onvif_by_ip.get(ip_address)
-    if not onvif_info and (8899 in open_ports or 80 in open_ports or 8000 in open_ports):
-        # Check if device responds to ONVIF SOAP on port 8899 or 80
-        probe_port = 8899 if 8899 in open_ports else 80
-        probed_onvif = await interrogate_onvif_device(ip_address, port=probe_port)
-        if probed_onvif.get("reachable"):
-            onvif_info = probed_onvif
+    if not onvif_info and ({8899, 80, 81, 82, 88, 8080, 8000} & set(open_ports)):
+        # Check if device responds to ONVIF SOAP on candidate HTTP/ONVIF ports
+        for candidate_port in (8899, 80, 8080, 8000, 81, 88):
+            if candidate_port in open_ports:
+                probed_onvif = await interrogate_onvif_device(ip_address, port=candidate_port)
+                if probed_onvif.get("reachable"):
+                    onvif_info = probed_onvif
+                    break
 
     mdns_info = mdns_by_ip.get(ip_address)
     ssdp_info = ssdp_by_ip.get(ip_address)

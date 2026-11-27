@@ -57,12 +57,17 @@ class DeviceRepository:
             )
 
         if category and category.upper() != "ALL":
-            if category.upper() == "CAMERA":
+            cat_upper = category.upper()
+            if cat_upper in ("CAMERA", "IP_CAMERA", "ONVIF_CAMERA"):
                 stmt = stmt.where(Device.category.in_(["CAMERA", "ONVIF_CAMERA"]))
-            elif category.upper() == "NVR_DVR":
+            elif cat_upper in ("NVR_DVR", "NVR", "DVR"):
                 stmt = stmt.where(Device.category.in_(["NVR", "DVR"]))
+            elif cat_upper in ("NETWORK_INFRASTRUCTURE", "ROUTER", "NETWORK_DEVICE"):
+                stmt = stmt.where(Device.category.in_(["ROUTER", "NETWORK_DEVICE"]))
+            elif cat_upper in ("WORKSTATION_MOBILE", "COMPUTER", "NAS"):
+                stmt = stmt.where(Device.category.in_(["COMPUTER", "NAS"]))
             else:
-                stmt = stmt.where(Device.category == category.upper())
+                stmt = stmt.where(Device.category == cat_upper)
 
         if is_online is not None:
             stmt = stmt.where(Device.is_online == is_online)

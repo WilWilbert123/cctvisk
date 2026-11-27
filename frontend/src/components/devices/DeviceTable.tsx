@@ -20,6 +20,11 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({
   const navigate = useNavigate();
   const setActiveLiveCamera = useDeviceStore((s) => s.setActiveLiveCamera);
 
+  const isCamCat = (cat?: string) =>
+    ['CAMERA', 'ONVIF_CAMERA', 'IP_CAMERA'].includes((cat || '').toUpperCase());
+  const isNvrCat = (cat?: string) =>
+    ['NVR', 'DVR', 'NVR_DVR'].includes((cat || '').toUpperCase());
+
   const columns: TableColumn<Device>[] = [
     {
       key: 'ip',
@@ -27,9 +32,9 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({
       render: (d) => (
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
-            {d.category === 'ip_camera' ? (
+            {isCamCat(d.category) ? (
               <Cctv className="w-4 h-4" />
-            ) : d.category === 'nvr_dvr' ? (
+            ) : isNvrCat(d.category) ? (
               <HardDrive className="w-4 h-4" />
             ) : (
               <Server className="w-4 h-4" />
@@ -40,7 +45,7 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({
               {d.ip_address}
             </div>
             <div className="text-xs text-slate-500 dark:text-slate-400">
-              {d.label || d.hostname || 'Unlabeled Host'}
+              {d.label || d.hostname || d.model || 'Unlabeled Host'}
             </div>
           </div>
         </div>
@@ -67,15 +72,24 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({
         <div className="space-y-1">
           <Badge
             variant={
-              d.category === 'ip_camera'
+              isCamCat(d.category)
                 ? 'info'
-                : d.category === 'nvr_dvr'
+                : isNvrCat(d.category)
                 ? 'warning'
                 : 'default'
             }
           >
-            {(d.category || 'unknown').replace('_', ' ').toUpperCase()}
+            {isCamCat(d.category)
+              ? 'CCTV CAMERA'
+              : isNvrCat(d.category)
+              ? 'NVR / DVR'
+              : `NOT CAMERA (${(d.category || 'UNKNOWN').replace('_', ' ').toUpperCase()})`}
           </Badge>
+          {d.model && (
+            <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[180px]">
+              {d.model}
+            </div>
+          )}
         </div>
       ),
     },
@@ -122,10 +136,12 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({
       header: 'Actions',
       render: (d) => {
         const isCam =
-          d.category === 'ip_camera' ||
+          isCamCat(d.category) ||
+          isNvrCat(d.category) ||
           Boolean(d.camera) ||
+          Boolean(d.nvr) ||
           (d.open_ports || []).some((p) =>
-            typeof p === 'number' ? p === 554 : p.port === 554
+            typeof p === 'number' ? p === 554 || p === 8554 : p.port === 554 || p.port === 8554
           );
 
         return (

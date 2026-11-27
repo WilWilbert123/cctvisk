@@ -41,26 +41,34 @@ class RecoveryStatus(str, Enum):
 
 DEFAULT_COMMON_PORTS: list[int] = [
     80,
+    81,
+    82,
+    88,
     443,
     554,
+    1935,
     3702,
     5000,
     8000,
     8080,
+    8090,
     8443,
     8554,
     8899,
     9000,
+    9527,
+    10554,
     34567,
     37777,
+    37778,
     53,
     445,
     631,
     9100,
 ]
 
-CCTV_SPECIFIC_PORTS: set[int] = {554, 3702, 8000, 8554, 8899, 9000, 34567, 37777}
-WEB_ADMIN_PORTS: set[int] = {80, 443, 8000, 8080, 8443, 8899}
+CCTV_SPECIFIC_PORTS: set[int] = {554, 1935, 3702, 8000, 8554, 8899, 9000, 9527, 10554, 34567, 37777, 37778}
+WEB_ADMIN_PORTS: set[int] = {80, 81, 82, 88, 443, 8000, 8080, 8090, 8443, 8899}
 PRINTER_PORTS: set[int] = {631, 9100}
 
 ONVIF_MULTICAST_IP = "239.255.255.250"

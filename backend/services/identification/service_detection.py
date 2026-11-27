@@ -101,13 +101,13 @@ async def inspect_device_services(
     port_set = set(open_ports)
 
     tasks: list[tuple[str, asyncio.Task[dict[str, Any]]]] = []
-    for http_p in (80, 8080, 8000, 8899):
+    for http_p in (80, 81, 82, 88, 8080, 8000, 8899):
         if http_p in port_set:
             tasks.append((f"http_{http_p}", asyncio.create_task(probe_http_service(ip_address, http_p, False))))
     for https_p in (443, 8443):
         if https_p in port_set:
             tasks.append((f"https_{https_p}", asyncio.create_task(probe_http_service(ip_address, https_p, True))))
-    for rtsp_p in (554, 8554):
+    for rtsp_p in (554, 8554, 10554):
         if rtsp_p in port_set:
             tasks.append((f"rtsp_{rtsp_p}", asyncio.create_task(probe_rtsp_options(ip_address, rtsp_p))))
 
